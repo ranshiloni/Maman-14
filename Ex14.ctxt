@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Ex14
+comment0.text=\n\ Maman\ 14,\ Openu\ 2017\n\n\ @author\ Ran\ Shiloni\n\ @version\ 301892212\n
+comment1.params=mat
+comment1.target=int\ isSink(int[][])
+comment1.text=\n\ Return\ the\ location\ of\ k[][]\ if\ there's\ a\ sink\ (row\ of\ 0s\ and\ a\ column\ of\ 1s\ except\ the\ row),\ otherwise\ returns\ -1\n\ Efficiency\ O(n)\ \n\ @param\ int[][]\ mat\ square\ matrix\n\ @return\ int\ the\ location\ of\ the\ sink,\ or\ -1\ if\ there\ isn't\ one\n
+comment2.params=mat\ x
+comment2.target=boolean\ find(int[][],\ int)
+comment2.text=\n\ \n
+comment3.params=mat\ x\ index
+comment3.target=boolean\ checkSquare(int[][],\ int,\ int)
+comment3.text=\n\ Returns\ true\ if\ a\ number\ x\ if\ found\ a\ square\ surrounding\ an\ index\n\ @param\ x\ number\ to\ be\ found\n\ @param\ index\ index\ of\ the\ square\n
+numComments=4
