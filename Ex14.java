@@ -59,52 +59,83 @@ public class Ex14
      */
     public static boolean find(int[][] mat, int x)
     {
-        int highRow, highClm, lowRow, lowClm, middle;
-
-        highRow = mat.length -1;
-        highClm = mat.length -1;
-        lowRow = 0;
-        lowClm = 0;
-
-        while ((highRow!=lowRow)&&(lowClm!=highClm))
+        int middle, quarter;
+        middle = (mat.length-1)/2;
+        if(mat[middle][mat.length-1] > x) //finding which quarter would the number might be
         {
-            middle = (lowRow+highClm)/2; 
-            if(mat[middle][highClm] > x)  // the number might be on top horizontal half of the square 
+            if (mat[middle][middle] >= x)
+                quarter=1;
+            else
             {
-                highRow = middle;
-                if (mat[middle][middle] > x)
-                //number might be on the 1st quarter
-                    highClm = middle; //!! doesnt work with 4X4
-                else
-                {
-                    //the number might be on the 2nd quarter
-                    lowRow = middle+1;
-                    lowClm = middle+1;
-                }
-            }
-            else // the number might be found on the bottom horizontal half
-            {
-                lowRow = middle+1;
-                if (mat[middle][highRow] > x)
-                //the number might be on the 3rd quarter
-                    highClm = middle;
-                else
-                {
-                    lowClm = middle+1;
-                }
+                quarter=2;
             }
         }
-        return checkSquare(mat,x,highRow); //the highRow would be the index location where surrounding the number could be found
+        else // the number might be found on the bottom horizontal half
+        {
+            if (mat[mat.length-1][middle] >= x)
+                quarter=3;
+            else
+            {
+                quarter=4;
+            }
+        }
+        if (middle==0){ //if it's a 2X2 square, optimize the 2nd quarter.
+            if (mat[0][1] == x) 
+                return true;
+        }
+        return checkQuarter(mat,x,middle,quarter); //the highRow would be the index location where surrounding the number could be found
+
     }
-    /**
-     * Returns true if a number x if found a square surrounding an index
-     * @param x number to be found
-     * @param index index of the square
-     */
-    private static boolean checkSquare (int[][] mat, int x, int index){
-        if((mat[index][index]==x)||(mat[index-1][index]==x)||(mat[index][index-1]==x)||(mat[index-1][index-1]==x))
-        return true;
-        else 
+
+    private static boolean checkQuarter (int[][] mat, int x, int middle, int quarter)
+    {
+        int highRow, lowRow, highClm, lowClm;
+        //initialise coordinates to focus on in the matrix instead of creating a new one
+        switch (quarter)
+        {
+            case 1: highRow = middle;
+            highClm = middle;
+            lowRow = 0;
+            lowClm = 0;
+            break;
+            case 2: highRow = middle;
+            highClm = mat.length-1;
+            lowRow = 0;
+            lowClm = middle;
+            break;
+            case 3: highRow = mat.length-1;
+            highClm = middle;
+            lowRow = middle+1;
+            lowClm = 0;
+            break;
+            case 4: highRow = mat.length-1;
+            highClm = mat.length-1;
+            lowRow = middle+1;
+            lowClm = middle+1;
+            break;        
+            default: return false;
+        }
+
+        //find the potential row
+        int potentialRow = -1;
+        int i;
+
+        for (i=lowRow; i<=highRow; i++) //find which row is the potential one
+        {
+            if ((mat[i][lowClm]<=x)&&(mat[i][highClm]>=x))
+            {
+                potentialRow = i;
+                break;
+            }
+        }
+        if (potentialRow > -1)
+        {//found the row it is most likely to be in
+            for (i=lowClm; i<=highClm; i++) //itterate on the potenrial row in the quarter
+            {
+                if (mat[potentialRow][i] == x) 
+                    return true;
+            }
+        }
         return false;
     }
 }

@@ -31,8 +31,9 @@ public class StudentTester {
             // System.out.println("checkIsSumOf() is failed");
         
     // }
-
+    
     private static void Find() {
+        int i;
         int[][] mat = {
                 {1, 2},
                 {3, 4}};
@@ -40,14 +41,21 @@ public class StudentTester {
         int [][] mat1 = {
             {-4, -2, 5, 9},
             {2,5,12,13},
-            {13,20,25,25},
-            {22,24,49,57}};
-            
-        if(Ex14.find(mat1, 20))	
-            System.out.println("found");
+            {13,24,24,25},
+            {22,24,49,49}};
+        
+        if(Ex14.find(mat, 3))  
+            System.out.println(1 +" found");
             else 
-            System.out.println("not found");
+            System.out.println(1 + "not found");
             
+            for (i = -4; i<58; i++) 
+        {
+        if(Ex14.find(mat1, i))  
+            System.out.println(i +" found");
+            else 
+            System.out.println(i + "not found");
+        } 
         
     }
 
